@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: future-disney-deployment
+  labels:
+    app: web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: future-disney-container
+        image: gcr.io/hotelbot-siao/hotelbot-siao-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: future-disney      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: future-disney-service
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: LoadBalancer

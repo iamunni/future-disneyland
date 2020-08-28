@@ -1,0 +1,16 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/hotelbot-siao/hotelbot-siao-image', '.']
+    timeout: 500s
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/hotelbot-siao/hotelbot-siao-image']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'deployment.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=hotelbot-siao-cluster'
+options:
+  machineType: 'N1_HIGHCPU_8'
+timeout: 660s
+tags: ['hotelbot-siaotag1', 'hotelbot-siaotag2']
+images: ['gcr.io/hotelbot-siao/hotelbot-siao-image']
