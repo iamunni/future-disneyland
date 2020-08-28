@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: future-disney-container
-        image: gcr.io/hotelbot-siao/hotelbot-siao-image
+        image: gcr.io/aesthetic-genre-277613/hotelbot-siao-image
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
